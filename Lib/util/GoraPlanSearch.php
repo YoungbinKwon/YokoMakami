@@ -2,7 +2,7 @@
 
 class GoraPlanSearch {
 
-    private $url;
+    private $url_base;
     private $appl_id;
 
     public function __construct()
@@ -32,4 +32,45 @@ class GoraPlanSearch {
         
         return $decoded;
     }
+
+    public function setParam($data)
+    {
+        $params = ['areaCode'=> 13,'playDate' => date("Y-m-d",strtotime("+1 week"))];
+ 
+        foreach ($data as $key => $value) {
+            switch ($key) {
+                case "date":
+                    $param['playDate'] = $this->setDate($value);
+                default:
+                    $params[$key] = $value['code'];
+            }
+        }
+
+        return $params;
+    }
+
+    private function setDate($date)
+    {
+        switch ($date) {
+            case "today":
+                $param = date("Y-m-d");
+            case "tomorrow":
+                $param = date("Y-m-d",strtotime("+1 day"));
+            case "2day":
+                $param = date("Y-m-d",strtotime("+1 day"));
+            case "nextweek":
+                $param = date("Y-m-d",strtotime("+1 week"));
+            case "twoweek":
+                $param = date("Y-m-d",strtotime("+2 week"));
+            case "nextmonth":
+                $param = date("Y-m-d",strtotime("+1 month"));
+            case "twomonth":
+                $param = date("Y-m-d",strtotime("+2 month"));
+            default:
+                $param = date("Y-m-d",strtotime("+1 week"));
+        }
+
+        return $param;
+    }
+
 }

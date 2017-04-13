@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Tokyo');
 
 define('ROOT_PATH', realpath(dirname(__FILE__)));
 require_once('env_var.php');
